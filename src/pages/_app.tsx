@@ -1,6 +1,16 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import React from "react";
+import { AppProps } from "next/app";
+import Layout from "../components/Layout";
+import "../styles/globals.css";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <Layout>
+      <div className="h-24 min-h-screen">
+        <Component {...pageProps} />
+      </div>
+    </Layout>
+  );
 }
+
+export default MyApp;
