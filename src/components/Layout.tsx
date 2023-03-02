@@ -6,7 +6,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <div className="container">{children}</div>
+      <div className="container flex filter justify-center w-auto">
+        {children}
+      </div>
       <Footer />
     </>
   );

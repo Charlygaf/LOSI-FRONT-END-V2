@@ -1,12 +1,9 @@
 import { NextPage } from "next";
 import React from "react";
+import YoutubeEmbed from "../components/YtVideo";
 
 const Home: NextPage = () => {
-  return (
-    <div>
-      <h1 className="text-center font-bold text-xl">Home</h1>
-    </div>
-  );
+  return <YoutubeEmbed id={"MYSP8-rhnSk"} />;
 };
 
 export default Home;

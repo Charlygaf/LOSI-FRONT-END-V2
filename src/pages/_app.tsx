@@ -6,7 +6,7 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <div className="h-24 min-h-screen">
+      <div className="w-screen h-screen pb-40">
         <Component {...pageProps} />
       </div>
     </Layout>

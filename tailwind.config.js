@@ -18,12 +18,17 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
-      blue: colors.sky,
-      red: colors.rose,
-      pink: colors.fuchsia,
+      transparent: "transparent",
+      current: "currentColor",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      emerald: colors.emerald,
+      indigo: colors.indigo,
+      yellow: colors.yellow,
     },
     fontFamily: {
-      sans: ["Golos Text", "sans-serif"],
+      sans: ["Archivo", "sans-serif"],
       serif: ["Merriweather", "serif"],
     },
     extend: {
