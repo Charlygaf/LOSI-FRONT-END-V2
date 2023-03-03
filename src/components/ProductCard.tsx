@@ -16,11 +16,13 @@ const ProductCard = ({ product }: ProductProps) => {
 
   return (
     <div
-      id="productCard"
-      className=" transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110  hover:backdrop-blur-md   duration-300 ..."
+      className="relative h-96 text-center text-gray rounded-xl
+       transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110  hover:backdrop-blur-md   duration-300 ..."
     >
       <Image
+        className="object-contain overflow-hidden"
         loader={() => `${product.imageUrl}`}
+        unoptimized={true}
         src={`${product.imageUrl}`}
         alt={product.title}
         fill

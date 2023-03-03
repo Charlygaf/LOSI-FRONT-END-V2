@@ -33,7 +33,7 @@ export const getStaticProps = async () => {
 
 const Shop = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 gap-4  h-full">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
