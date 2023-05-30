@@ -10,7 +10,6 @@ const NavLink: FC<any> = ({ to, children }) => {
 };
 
 const Navbar: FC<any> = () => {
-  const [open, setOpen] = useState(false);
   return (
     <div
       id="navbar"
