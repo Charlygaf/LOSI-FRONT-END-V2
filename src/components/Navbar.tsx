@@ -13,7 +13,7 @@ const Navbar: FC<any> = () => {
   return (
     <div
       id="navbar"
-      className="flex filter justify-center space-x-40 px-40  h-40 items-center"
+      className="flex filter justify-center space-x-20  h-32 mb-5 items-center"
     >
       <Link href="/Shop" className="font-serif">
         shop

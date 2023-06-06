@@ -10,7 +10,7 @@ const YoutubeEmbed: FC<EmbededVideo> = (props: EmbededVideo) => (
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen
     title={`1`}
-    className="min-w-full min-h-full"
+    className="h-[70vh] w-[100vh]"
   />
 );
 

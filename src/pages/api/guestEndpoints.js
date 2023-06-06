@@ -1,9 +1,11 @@
+const API_URL = "http://localhost:3300";
+
 const guestEndpoints = {
-  showProducts: { url: process.env.API_URL + "/guest/products", method: "GET" },
-  showContent: { url: process.env.API_URL + "/guest/content", method: "GET" },
-  showArts: { url: process.env.API_URL + "/guest/arts", method: "GET" },
+  showProducts: { url: API_URL + "/guest/products", method: "GET" },
+  showContent: { url: API_URL + "/guest/content", method: "GET" },
+  showArts: { url: API_URL + "/guest/arts", method: "GET" },
   showProductDetail: {
-    url: "/guest/product-detail",
+    url: API_URL + "/guest/product-detail",
     method: "GET",
   },
 };

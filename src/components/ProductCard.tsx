@@ -5,8 +5,6 @@ import { ItemArray } from "../types";
 
 const ProductCard = ({ item }: ItemArray) => {
   const router = useRouter();
-  console.log(item.imageUrl);
-  console.log(item.price);
 
   const handleClick = (id: number) => {
     return (event: React.MouseEvent) => {

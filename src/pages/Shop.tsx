@@ -27,7 +27,7 @@ export const getStaticProps = async () => {
 
 const Shop = ({ items }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-4  h-full">
+    <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-4">
       {items.map((item) => (
         <ProductCard key={item.id} item={item} />
       ))}
