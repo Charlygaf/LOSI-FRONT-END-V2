@@ -28,6 +28,11 @@ const Footer = () => {
             Shop
           </Link>
         </li>
+        <li>
+          <Link href="/Cart" className="mr-4 hover:underline md:mr-6">
+            Mi Carrito
+          </Link>
+        </li>
       </ul>
     </footer>
   );

@@ -24,7 +24,6 @@ const ProductCard = ({ item }: ItemArray) => {
           <Image
             className="object-contain overflow-hidden cardImage "
             loader={() => `${item.imageUrl}`}
-            unoptimized={true}
             src={`${item.imageUrl}`}
             alt={item.title}
             fill

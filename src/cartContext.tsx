@@ -1,10 +1,17 @@
-import React, { FC, ReactNode, createContext, useState } from "react";
+import React, {
+  FC,
+  ReactNode,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 
-interface CartItem {
+export interface CartItem {
   quantity: number;
   id: number;
   price: number;
   title: string;
+  discount: number;
   description: string;
   imageUrl: string;
   size: string;
@@ -27,10 +34,20 @@ export const CartContext = createContext<CartContextProps>({
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
+  useEffect(() => {
+    // Retrieve cart state from local storage on component mount
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
+
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
       // Check if the item is already in the cart
-      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem.id === item.id && cartItem.size === item.size
+      );
       if (existingItem) {
         // If the item is already in the cart, update the quantity
         return prevCart.map((cartItem) =>
@@ -40,15 +57,17 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         );
       } else {
         // If the item is not in the cart, add it with quantity 1
-        return [...prevCart, { ...item, quantity: 1 }];
+        return [...prevCart, { ...item }];
       }
     });
+    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   const removeFromCart = (itemId: number) => {
     setCart((prevCart) =>
       prevCart.filter((cartItem) => cartItem.id !== itemId)
     );
+    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   return (

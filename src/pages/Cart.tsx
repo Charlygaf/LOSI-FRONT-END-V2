@@ -1,20 +1,24 @@
 import React, { useContext } from "react";
 import { CartContext } from "../cartContext";
+import CartProductCard from "@/components/CartProductCard";
 
 const Cart = () => {
   const { cart } = useContext(CartContext);
   console.log(cart);
 
   return (
-    <div>
-      <h2>Cart Items</h2>
-      {cart.map((item) => (
-        <div key={item.id}>
-          <p>{item.title}</p>
-          <p>Quantity: {item.quantity}</p>
+    <>
+      <div className=" text-center">
+        <div className="text-2xl">Carrito</div>
+        <div className=" text-center border rounded-lg border-gray-500 hover:border-indigo-300 ">
+          {cart.length >= 0
+            ? cart.map((item) => (
+                <CartProductCard key={item.id} CartItem={item} />
+              ))
+            : "Carrito Vacio"}
         </div>
-      ))}
-    </div>
+      </div>
+    </>
   );
 };
 

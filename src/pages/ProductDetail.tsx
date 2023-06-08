@@ -6,15 +6,19 @@ import { Menu } from "@headlessui/react";
 import Button from "../components/Button";
 import guestEndpoints from "./api/guestEndpoints";
 import { CartContext } from "@/cartContext";
+import QuantityCounter from "../components/Counter";
 import Error from "next/error";
+import { log } from "console";
 
 function ProductDetail() {
   const router = useRouter();
   const { itemId } = router.query;
-  const [quantity, setQuantity] = useState<number>(1);
+  const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
+  const [selectedSize, setSelectedSize] = useState<string>();
   const [product, setProduct] = useState<Item>();
   const { addToCart } = useContext(CartContext);
-  console.log(1);
+
+  const { cart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -42,19 +46,31 @@ function ProductDetail() {
     if (itemId) {
       fetchProductData();
     }
-  }, []);
+  }, [itemId]);
 
-  const handleAddToCart = (stock: Stock) => {
-    if (product?.id) {
+  const handleselectedQuantityChange = (newSelectedQuantity: number) => {
+    setSelectedQuantity(newSelectedQuantity);
+  };
+
+  const handleAddToCart = (
+    selectedQuantity: number,
+    selectedSize: string | undefined
+  ) => {
+    if (product?.id && selectedSize) {
       const selectedProduct = {
         id: product.id,
         title: product.title,
-        size: stock.size,
+        size: selectedSize,
         price: product.price,
-        quantity,
+        discount: product.discount,
+        quantity: selectedQuantity,
         imageUrl: product.imageUrl,
         description: product.description,
       };
+      console.log(selectedProduct);
+
+      console.log("cart", cart);
+
       addToCart(selectedProduct);
     } else {
       // Handle the case where the product ID is undefined or null
@@ -65,7 +81,7 @@ function ProductDetail() {
   return (
     <div className="container">
       {product ? (
-        <div className=" p-5 grid grid-cols-2  ">
+        <div className=" p-5 grid grid-cols-1  md:grid-cols-2 space-x-10 ">
           <div className="flex-initial ">
             <Image
               className="object-contain overflow-hidden cardImage "
@@ -76,46 +92,68 @@ function ProductDetail() {
               fill
             />
           </div>
-          <div className=" grid grid-rows-3">
-            <div>
-              <h2 className=" text-xl">{product.title}</h2>
-              <h2 className=" text-gray-700">${product.price}</h2>
-            </div>
-            <div>
-              <h2>Descripcion:</h2>
-              <p className="font-serif">{product.description}</p>
-            </div>
-            <div>
-              {product?.Stocks && (
-                <Menu>
-                  <Menu.Button>
-                    <Button
-                      className={
-                        "border border-gray-500 hover:border-indigo-300 w-24"
-                      }
-                    >
-                      {"Talles"}
-                    </Button>
-                  </Menu.Button>
+          <div className=" grid  content-center space-y-5  ">
+            <div className="grid-rows-4 ">
+              <div>
+                <h2 className=" text-xl">{product.title}</h2>
+                <h2 className=" text-gray-700">${product.price}</h2>
+              </div>
+              <div>
+                <h2>Descripcion:</h2>
+                <p className="font-serif">{product.description}</p>
+              </div>
 
-                  <Menu.Items>
-                    {product?.Stocks.map((stock) => (
-                      <Menu.Item key={stock.id}>
-                        <div>
-                          <Button
-                            onClick={() => handleAddToCart(stock)}
-                            className={
-                              "border border-gray-500 hover:border-indigo-300 w-24"
-                            }
-                          >
-                            {stock.size}
-                          </Button>
-                        </div>
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Menu>
-              )}
+              <QuantityCounter
+                quantity={selectedQuantity}
+                onQuantityChange={handleselectedQuantityChange}
+              />
+              <div>
+                {product?.Stocks.length ? (
+                  <Menu>
+                    <Menu.Button>
+                      <Button
+                        className={
+                          "border border-gray-500 hover:border-indigo-300 w-24"
+                        }
+                      >
+                        {!selectedSize ? "Talles" : selectedSize}
+                      </Button>
+                    </Menu.Button>
+
+                    <Menu.Items>
+                      {product?.Stocks.map((stock) => (
+                        <Menu.Item key={stock.id}>
+                          <div>
+                            <Button
+                              onClick={() => setSelectedSize(stock.size)}
+                              className={
+                                "border border-gray-500 hover:border-indigo-300 w-24"
+                              }
+                            >
+                              {stock.size}
+                            </Button>
+                          </div>
+                        </Menu.Item>
+                      ))}
+                    </Menu.Items>
+                  </Menu>
+                ) : (
+                  "AGOTADO :("
+                )}
+              </div>
+
+              <div>
+                <Button
+                  onClick={() =>
+                    handleAddToCart(selectedQuantity, selectedSize)
+                  }
+                  className={
+                    "mt-10 border border-gray-500 hover:border-indigo-300 "
+                  }
+                >
+                  Agregar al carrito
+                </Button>
+              </div>
             </div>
           </div>
         </div>
